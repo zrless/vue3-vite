@@ -2,10 +2,12 @@
   <h1 v-on:click="changeMsg">{{ msg }}</h1>
   <template v-for="item in list">-{{ item }}-</template>
   <GrandSon />
+  <h3>counterjian1: {{ counterjian1 }}</h3>
 </template>
 
 <script>
-import { onMounted, ref, watch, toRefs } from 'vue';
+import { onMounted, ref, watch, toRefs, computed } from 'vue';
+import { useStore } from 'vuex';
 import { getList } from '../utils/tool';
 import GrandSon from './GrandSon.vue';
 export default {
@@ -38,8 +40,14 @@ export default {
       fetchList,
     };
   },
+  computed: {
+    counterjian1() {
+      return this.$store.getters['counterModule/jian1'];
+    },
+  },
   methods: {
     changeMsg() {
+      this.$store.dispatch("counterModule/addAction");
       this.$emit('changeMsg', { msg: '哈哈哈' });
     },
   },

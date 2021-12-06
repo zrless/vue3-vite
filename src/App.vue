@@ -1,10 +1,16 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png" />
   <HelloWorld :msg="msg" v-on:changeMsg="changeMsg" />
+  <div>
+    this.$store.state.counterModule.counter:
+    {{ this.$store.state.counterModule.counter }}
+  </div>
+  <div>counter: {{ counter }}</div>
 </template>
 
 <script>
-import { provide, ref } from "vue"
+import { onMounted, provide, ref } from 'vue';
+import { useStore } from 'vuex';
 import HelloWorld from './components/HelloWorld.vue';
 
 export default {
@@ -23,11 +29,17 @@ export default {
     HelloWorld,
   },
   setup() {
-    const msg = ref("Hello Vue 3.0");
-    provide("msg", msg);  //provide/inject 添加响应式
+    const msg = ref('Hello Vue 3.0');
+    let counter = ref(0);
+    // setup中不能直接用this.$store/this.$router访问
+    const store = useStore();
+    counter = store.state.counterModule.counter;
+    provide('msg', msg); //provide/inject 添加响应式
+    onMounted(() => {});
     return {
-      msg
-    }
+      msg,
+      counter,
+    };
   },
   methods: {
     changeMsg(data) {
