@@ -19,10 +19,16 @@ const counterModule = {
     add(state) {
       state.counter++;
     },
+    reduce(state) {
+      state.counter--;
+    },
   },
   actions: {
     addAction(ctx) {
       ctx.commit('add');
+    },
+    reduceAction(ctx) {
+      ctx.commit('reduce');
     },
   },
 };

@@ -7,7 +7,7 @@
 
 <script>
 import { onMounted, ref, watch, toRefs, computed } from 'vue';
-import { useStore } from 'vuex';
+import { useStore, mapActions } from 'vuex';
 import { getList } from '../utils/tool';
 import GrandSon from './GrandSon.vue';
 export default {
@@ -47,9 +47,13 @@ export default {
   },
   methods: {
     changeMsg() {
-      this.$store.dispatch("counterModule/addAction");
+      this.addAction(); // 等同于this.$store.dispatch('counterModule/addAction');
       this.$emit('changeMsg', { msg: '哈哈哈' });
     },
+    ...mapActions({
+      addAction: 'counterModule/addAction',
+      reduceAction: 'counterModule/reduceAction',
+    }),
   },
 };
 </script>
