@@ -2,17 +2,14 @@
   <h2>{{ msg }}</h2>
 </template>
 
-<script>
-import { inject } from 'vue';
-export default {
-  name: 'GrandSon',
-  // inject: ['msg'],
-  setup() {
-    const msg = inject('msg');
-    console.log(msg);
-    return {
-      msg,
-    };
-  },
+<script setup>
+import { inject, onMounted } from "vue";
+
+const useMsg = () => {
+  return inject("msg").value + " 2222";
 };
+onMounted(() => {
+  console.log(msg);
+});
+const msg = useMsg();
 </script>
